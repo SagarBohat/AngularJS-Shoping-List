@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Bohat Enterprises</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    span{
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body  ng-app="myShoppingList" ng-controller="myCtrl" >
+    <div class="container jumbotron">
+        <p class="text-muted">First AngularJS application by <h2 class="text-dark" >Sagar_Bohat_RX100 👌🏼👌🏼👌🏼👌🏼</h2> </p>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-secondary d-flex justify-content-between align-item-center" ng-repeat=" x in products ">{{ x }}<span ng-click="removeItem($index)" class="badge ">&times;</span></li>
+        </ul>
+        <input    class="form-control form-control-lg  inputField"    ng-model="addMe" placeholder="Add some item" >
+        <button  class="btn btn-dark"
+        ng-click="addItem()" type="button" id="addBtn"
+        >Add</button>
+
+        <div class="toast alreadyExits ">
+           <div class="toast-header">
+               Already Exitst!
+           </div>
+           <div class="toast-body">
+            <p>Item is already exists. </p>
+           </div>
+         </div>
+
+         <div class="toast emptyList">
+            <div class="toast-header">
+                List is Empty!
+            </div>
+            <div class="toast-body">
+             <p> Add an item first! </p>
+            </div>
+          </div>
+
+
+       
+    </div>
+
+    <script>
+    var app=angular.module("myShoppingList",[]);
+    app.controller("myCtrl",function($scope){
+        $scope.products=[];
+        $scope.addItem=function(){
+           
+            if(!$scope.addMe){
+                $(".emptyList").toast('show');
+                return;
+            }
+            if($scope.products.indexOf($scope.addMe)== -1 ){
+                $scope.products.push($scope.addMe);
+                $('.inputField').val("");
+                
+            }
+            else{
+                $(".alreadyExits").toast('show');
+            }
+        }
+
+        $scope.removeItem=function(x){
+           
+            $scope.products.splice(x,1);
+            $('.inputField').val("");
+        }
+
+    });
+
+    </script>
+    <!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
